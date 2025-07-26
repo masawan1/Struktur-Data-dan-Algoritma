@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis: Petualangan Data & Algoritma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base font for the entire body */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Chart container styling for responsiveness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width for larger screens */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Default height for mobile */
+            max-height: 45vh; /* Prevents charts from being too tall on small screens */
+            min-height: 200px; /* Ensures a minimum visible height for charts */
+        }
+
+        /* Adjust chart container height for medium and larger screens */
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Flowchart node styling for responsiveness */
+        .flowchart-node {
+            border-width: 2px;
+            padding: 0.75rem 1.25rem; /* Slightly reduced horizontal padding for small screens */
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            min-width: 120px; /* Slightly reduced min-width for mobile */
+            font-size: 0.9rem; /* Slightly smaller font for better fit on small screens */
+            white-space: nowrap; /* Prevent text wrapping inside node by default */
+        }
+
+        /* Adjust flowchart node padding, min-width, and font size for medium and larger screens */
+        @media (min-width: 768px) {
+            .flowchart-node {
+                padding: 0.75rem 1.5rem;
+                min-width: 150px;
+                font-size: 1rem;
+                white-space: normal; /* Allow text wrapping on larger screens if needed */
+            }
+        }
+
+        /* Base styling for flowchart arrows (vertical by default) */
+        .flowchart-arrow {
+            position: relative;
+            width: 2px;
+            height: 40px; /* Height for vertical arrow */
+            margin: 0 auto;
+            background-color: currentColor; /* Use current color for the line */
+        }
+
+        /* Arrowhead for vertical arrows */
+        .flowchart-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid currentColor;
+        }
+
+        /* Specific styles for horizontal arrows (used in Linked List) */
+        .flowchart-arrow.horizontal-arrow {
+            width: 40px; /* Width for horizontal arrow */
+            height: 2px; /* Height for horizontal arrow */
+            margin: auto 0.5rem; /* Margin for horizontal arrow */
+            background-color: currentColor;
+        }
+
+        /* Arrowhead for horizontal arrows */
+        .flowchart-arrow.horizontal-arrow::after {
+            bottom: unset; /* Reset bottom for horizontal positioning */
+            top: 50%;
+            left: unset;
+            right: 0; /* Arrow points to the right */
+            transform: translateY(-50%) rotate(90deg); /* Rotate for right-pointing arrow */
+            border-top: 12px solid currentColor; /* Use border-top for the rotated triangle */
+            border-bottom: none; /* Ensure no bottom border */
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-[#005F73] text-white text-center p-6 md:p-12 shadow-lg rounded-b-lg relative">
+        <!-- Back to Dashboard Button -->
+        <button id="backToDashboard" class="absolute top-4 left-4 bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base shadow-md">
+            &larr; Kembali ke Dashboard
+        </button>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mt-8 md:mt-0">Petualangan di Dunia Data & Algoritma</h1>
+        <p class="mt-3 text-base md:text-xl max-w-3xl mx-auto text-[#94D2BD]">Membongkar rahasia bagaimana program komputer berpikir dan bekerja secara efisien.</p>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8 md:px-8 md:py-12">
+
+        <!-- Data Structures Section -->
+        <section id="data-structures" class="my-12 md:my-16">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-4xl font-bold text-[#005F73] leading-snug">Bab 1: 'Kontainer' Ajaib Penyimpan Data</h2>
+                <p class="mt-2 text-base md:text-lg max-w-2xl mx-auto text-gray-700">Struktur data adalah cara kita menata informasi. Pilihan yang tepat menentukan seberapa cepat kita bisa menemukan dan mengolahnya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+                <!-- Array Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">1. Array: Si Rak yang Rapi</h3>
+                    <p class="mb-4 text-gray-600 text-sm md:text-base">Seperti deretan loker bernomor. Sangat cepat untuk akses data jika tahu posisinya (indeks), namun kaku untuk diubah ukurannya.</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="arrayChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Linked List Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">2. Linked List: Si Rantai Fleksibel</h3>
+                    <p class="mb-4 text-gray-600 text-sm md:text-base">Seperti gerbong kereta yang saling terhubung. Fleksibel untuk menambah/menghapus data, namun akses harus berurutan dari awal.</p>
+                    <div class="flex flex-wrap items-center justify-center h-full mt-auto space-x-2 md:space-x-4">
+                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data A</div>
+                        <!-- Horizontal arrow for Linked List -->
+                        <div class="flowchart-arrow horizontal-arrow text-blue-400"></div>
+                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data B</div>
+                        <div class="flowchart-arrow horizontal-arrow text-blue-400"></div>
+                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data C</div>
+                    </div>
+                </div>
+
+                <!-- Stack Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">3. Stack: Si Tumpukan Piring (LIFO)</h3>
+                    <p class="mb-4 text-gray-600 text-sm md:text-base">Last-In, First-Out. Elemen terakhir yang masuk adalah yang pertama keluar. Contoh: Fungsi 'Undo' (Ctrl+Z).</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="stackChart"></canvas>
+                    </div>
+                    <div class="flex justify-center space-x-3 mt-4">
+                        <button id="stackPush" class="bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base min-w-[80px]">Push</button>
+                        <button id="stackPop" class="bg-[#EE9B00] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#CA6702] transition-colors text-sm md:text-base min-w-[80px]">Pop</button>
+                    </div>
+                </div>
+
+                <!-- Queue Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">4. Queue: Si Antrean Tiket (FIFO)</h3>
+                    <p class="mb-4 text-gray-600 text-sm md:text-base">First-In, First-Out. Elemen pertama yang masuk adalah yang pertama dilayani. Contoh: Antrean printer.</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="queueChart"></canvas>
+                    </div>
+                    <div class="flex justify-center space-x-3 mt-4">
+                        <button id="queueEnqueue" class="bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base min-w-[80px]">Enqueue</button>
+                        <button id="queueDequeue" class="bg-[#EE9B00] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#CA6702] transition-colors text-sm md:text-base min-w-[80px]">Dequeue</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Algorithms Section -->
+        <section id="algorithms" class="my-16 md:my-24">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-4xl font-bold text-[#005F73] leading-snug">Bab 2: 'Resep' Pemecah Masalah</h2>
+                <p class="mt-2 text-base md:text-lg max-w-2xl mx-auto text-gray-700">Algoritma adalah serangkaian langkah logis dan terurut untuk menyelesaikan suatu tugas. Seperti resep masakan untuk komputer.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 max-w-4xl mx-auto">
+                <h3 class="text-xl md:text-2xl font-bold text-center text-[#0A9396] mb-6">Contoh Algoritma: Memasak Nasi</h3>
+                <div class="flex flex-col items-center">
+                    <div class="flowchart-node bg-green-100 border-green-400 text-green-800">Mulai</div>
+                    <div class="flowchart-arrow text-green-400"></div>
+                    <div class="flowchart-node bg-green-100 border-green-400 text-green-800">Siapkan & Cuci Beras</div>
+                    <div class="flowchart-arrow text-green-400"></div>
+                    <div class="flowchart-node bg-green-100 border-green-400 text-green-800">Masukkan ke Panci & Tambah Air</div>
+                    <div class="flowchart-arrow text-green-400"></div>
+                    <div class="flowchart-node bg-green-100 border-green-400 text-green-800">Masak Hingga Matang</div>
+                    <div class="flowchart-arrow text-green-400"></div>
+                    <div class="flowchart-node bg-green-100 border-green-400 text-green-800">Selesai</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Synergy Section -->
+        <section id="synergy" class="my-16 md:my-24">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-4xl font-bold text-[#005F73] leading-snug">Bab 3: Duet Maut Keduanya</h2>
+                <p class="mt-2 text-base md:text-lg max-w-2xl mx-auto text-gray-700">Struktur data yang tepat membuat algoritma bekerja jauh lebih cepat. Mereka adalah tim impian dalam dunia pemrograman.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
+                <!-- Search Efficiency Chart Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">Efisiensi Pencarian: Terurut vs Acak</h3>
+                    <p class="mb-4 text-gray-600 text-sm md:text-base">Mencari data di array yang terurut (Binary Search) jauh lebih cepat daripada di array acak (Linear Search) seiring bertambahnya jumlah data.</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="searchEfficiencyChart"></canvas>
+                    </div>
+                </div>
+                <!-- Operation Speed Chart Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">Kecepatan Operasi: Array vs Linked List</h3>
+                    <p class="mb-4 text-gray-600 text-sm md:text-base">Setiap struktur data punya keunggulan. Array cepat untuk akses langsung, sementara Linked List unggul dalam penyisipan data di tengah.</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="operationSpeedChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="my-16 md:my-24 text-center">
+            <h2 class="text-2xl md:text-4xl font-bold text-[#005F73] leading-snug">Hasilnya? Perangkat Lunak Super!</h2>
+            <p class="mt-2 text-base md:text-lg max-w-2xl mx-auto mb-8 md:mb-10 text-gray-700">Memilih kombinasi yang tepat adalah kunci untuk membangun aplikasi yang...</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+                <!-- Efficiency Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <div class="text-5xl md:text-6xl mb-3 md:mb-4">⚡</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396]">Efisien</h3>
+                    <p class="text-gray-600 mt-2 text-sm md:text-base">Menggunakan sumber daya (memori & waktu proses) secara minimal.</p>
+                </div>
+                <!-- Performance Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <div class="text-5xl md:text-6xl mb-3 md:mb-4">🚀</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396]">Performa Cepat</h3>
+                    <p class="text-gray-600 mt-2 text-sm md:text-base">Memberikan respon yang cepat kepada pengguna, tanpa 'lag'.</p>
+                </div>
+                <!-- Scalability Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <div class="text-5xl md:text-6xl mb-3 md:mb-4">📈</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-[#0A9396]">Skalabel</h3>
+                    <p class="text-gray-600 mt-2 text-sm md:text-base">Tetap andal dan cepat meskipun jumlah data terus bertambah besar.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-[#005F73] text-white text-center p-6 mt-12 rounded-t-lg">
+        <p class="text-sm md:text-base">&copy; 2025 Infografis Interaktif. Dibuat oleh Dwi Frediawan, S.Pd | untuk visualisasi konsep informatika.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Callback function for Chart.js tooltips to handle wrapped labels
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+
+            // Shared options for all Chart.js instances to maintain consistency
+            const sharedChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#374151',
+                            font: {
+                                size: 12 // Smaller legend font for mobile readability
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        },
+                        bodyFont: {
+                            size: 12 // Smaller tooltip body font for mobile
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#374151', font: { size: 10 } }, // Smaller Y-axis tick font for mobile
+                        grid: { color: '#e5e7eb' }
+                    },
+                    x: {
+                        ticks: { color: '#374151', font: { size: 10 } }, // Smaller X-axis tick font for mobile
+                        grid: { color: '#e5e7eb' }
+                    }
+                }
+            };
+
+            // Initialize Array Chart
+            new Chart(document.getElementById('arrayChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Indeks 0', 'Indeks 1', 'Indeks 2', 'Indeks 3', 'Indeks 4'],
+                    datasets: [{
+                        label: 'Slot Data',
+                        data: [10, 10, 10, 10, 10],
+                        backgroundColor: '#94D2BD',
+                        borderColor: '#0A9396',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        y: { display: false }, // Hide Y-axis for this chart as it's not data-driven
+                        x: { ...sharedChartOptions.scales.x }
+                    }
+                }
+            });
+
+            // Initialize Stack Chart and its interactive buttons
+            const stackCtx = document.getElementById('stackChart');
+            const stackData = {
+                labels: ['Item 1', 'Item 2', 'Item 3'],
+                datasets: [{
+                    label: 'Tumpukan',
+                    data: [10, 10, 10],
+                    backgroundColor: '#94D2BD',
+                    borderColor: '#0A9396',
+                    borderWidth: 2,
+                }]
+            };
+            const stackChart = new Chart(stackCtx, {
+                type: 'bar',
+                data: stackData,
+                options: {
+                    ...sharedChartOptions,
+                    indexAxis: 'y', // Makes bars horizontal, better for stack visualization
+                    scales: {
+                        y: { ...sharedChartOptions.scales.y, stacked: true },
+                        x: { display: false, stacked: true } // Hide X-axis for stack visualization
+                    }
+                }
+            });
+
+            let stackCounter = 3; // Counter for new stack items
+            document.getElementById('stackPush').addEventListener('click', () => {
+                if (stackChart.data.labels.length < 7) { // Limit stack size to prevent overflow
+                    stackCounter++;
+                    stackChart.data.labels.push(`Item ${stackCounter}`);
+                    stackChart.data.datasets[0].data.push(10);
+                    stackChart.update(); // Update chart to reflect changes
+                }
+            });
+            document.getElementById('stackPop').addEventListener('click', () => {
+                if (stackChart.data.labels.length > 0) {
+                    stackChart.data.labels.pop(); // Remove last item
+                    stackChart.data.datasets[0].data.pop(); // Remove last data point
+                    stackChart.update(); // Update chart to reflect changes
+                }
+            });
+
+            // Initialize Queue Chart and its interactive buttons
+            const queueCtx = document.getElementById('queueChart');
+            const queueData = {
+                labels: ['Orang 1', 'Orang 2', 'Orang 3'],
+                datasets: [{
+                    label: 'Antrean',
+                    data: [10, 10, 10],
+                    backgroundColor: '#94D2BD',
+                    borderColor: '#0A9396',
+                    borderWidth: 2,
+                }]
+            };
+            const queueChart = new Chart(queueCtx, {
+                type: 'bar',
+                data: queueData,
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        y: { display: false }, // Hide Y-axis for queue visualization
+                        x: { ...sharedChartOptions.scales.x }
+                    }
+                }
+            });
+            let queueCounter = 3; // Counter for new queue items
+            document.getElementById('queueEnqueue').addEventListener('click', () => {
+                if (queueChart.data.labels.length < 7) { // Limit queue size
+                    queueCounter++;
+                    queueChart.data.labels.push(`Orang ${queueCounter}`);
+                    queueChart.data.datasets[0].data.push(10);
+                    queueChart.update();
+                }
+            });
+            document.getElementById('queueDequeue').addEventListener('click', () => {
+                if (queueChart.data.labels.length > 0) {
+                    queueChart.data.labels.shift(); // Remove first item
+                    queueChart.data.datasets[0].data.shift(); // Remove first data point
+                    queueChart.update();
+                }
+            });
+
+            // Initialize Search Efficiency Chart
+            new Chart(document.getElementById('searchEfficiencyChart'), {
+                type: 'line',
+                data: {
+                    labels: ['10', '100', '1.000', '10.000', '100.000'],
+                    datasets: [{
+                        label: 'Linear Search (Acak) O(n)',
+                        data: [10, 100, 1000, 10000, 100000],
+                        borderColor: '#EE9B00',
+                        backgroundColor: '#EE9B0020',
+                        fill: true,
+                        tension: 0.1
+                    }, {
+                        label: 'Binary Search (Terurut) O(log n)',
+                        data: [4, 7, 10, 14, 17], // Represents logarithmic growth
+                        borderColor: '#0A9396',
+                        backgroundColor: '#0A939620',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        y: {
+                            ...sharedChartOptions.scales.y,
+                            type: 'logarithmic', // Use logarithmic scale for better visualization of large differences
+                            title: { display: true, text: 'Jumlah Langkah (Waktu)', color: '#374151', font: { size: 12 } }
+                        },
+                        x: {
+                            ...sharedChartOptions.scales.x,
+                            title: { display: true, text: 'Jumlah Data', color: '#374151', font: { size: 12 } }
+                        }
+                    }
+                }
+            });
+
+            // Helper function to wrap long labels for better display on charts, especially on mobile
+            const wrapLabel = (label) => {
+                const max_width = 12; // Adjusted for narrower mobile chart widths
+                if (label.length <= max_width) return label;
+                const words = label.split(' ');
+                let lines = [];
+                let current_line = '';
+                for(const word of words) {
+                    if ((current_line + (current_line ? ' ' : '') + word).length > max_width && current_line !== '') {
+                        lines.push(current_line);
+                        current_line = word;
+                    } else {
+                        current_line = current_line ? current_line + ' ' + word : word;
+                    }
+                }
+                lines.push(current_line);
+                return lines;
+            }
+
+            // Initialize Operation Speed Chart
+            new Chart(document.getElementById('operationSpeedChart'), {
+                type: 'bar',
+                data: {
+                    labels: [wrapLabel('Akses Indeks Langsung'), wrapLabel('Sisip/Hapus di Tengah'), wrapLabel('Tambah/Hapus di Akhir')],
+                    datasets: [{
+                        label: 'Array',
+                        data: [100, 10, 50], // Higher value indicates faster operation (lower cost)
+                        backgroundColor: '#0A9396',
+                    }, {
+                        label: 'Linked List',
+                        data: [10, 95, 90], // Higher value indicates faster operation (lower cost)
+                        backgroundColor: '#EE9B00',
+                    }]
+                },
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        y: {
+                            ...sharedChartOptions.scales.y,
+                            title: { display: true, text: 'Kecepatan Relatif (Semakin Tinggi Semakin Cepat)', color: '#374151', font: { size: 12 } }
+                        },
+                        x: {
+                            ...sharedChartOptions.scales.x
+                        }
+                    },
+                    plugins: {
+                        ...sharedChartOptions.plugins,
+                        tooltip: { // Ensure tooltip callback is correctly applied for wrapped labels
+                            ...sharedChartOptions.plugins.tooltip,
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Event listener for the "Back to Dashboard" button
+            document.getElementById('backToDashboard').addEventListener('click', () => {
+                // Scrolls to the top of the page, simulating a "back to dashboard" action
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
