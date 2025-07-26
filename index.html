@@ -105,10 +105,11 @@
 
     <!-- Header Section -->
     <header class="bg-[#005F73] text-white text-center p-6 md:p-12 shadow-lg rounded-b-lg relative">
-        <!-- Back to Dashboard Button -->
-        <button id="backToDashboard" class="absolute top-4 left-4 bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base shadow-md">
+        <!-- Back to Dashboard Link Button -->
+        <!-- Changed from button to anchor <a> tag to function as a link -->
+        <a href="https://masawan1.github.io/dashboardinformatika/" id="backToDashboard" class="absolute top-4 left-4 bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base shadow-md no-underline">
             &larr; Kembali ke Dashboard
-        </button>
+        </a>
         <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mt-8 md:mt-0">Petualangan di Dunia Data & Algoritma</h1>
         <p class="mt-3 text-base md:text-xl max-w-3xl mx-auto text-[#94D2BD]">Membongkar rahasia bagaimana program komputer berpikir dan bekerja secara efisien.</p>
     </header>
@@ -253,7 +254,7 @@
 
     <!-- Footer Section -->
     <footer class="bg-[#005F73] text-white text-center p-6 mt-12 rounded-t-lg">
-        <p class="text-sm md:text-base">&copy; 2025 Infografis Interaktif. Dibuat oleh Dwi Frediawan, S.Pd | untuk visualisasi konsep informatika.</p>
+        <p class="text-sm md:text-base">&copy; 2025 Infografis Interaktif. Dibuat Oleh Dwi Frediawan, S.Pd untuk visualisasi konsep informatika.</p>
     </footer>
 
     <script>
@@ -501,11 +502,11 @@
                 }
             });
 
-            // Event listener for the "Back to Dashboard" button
-            document.getElementById('backToDashboard').addEventListener('click', () => {
-                // Scrolls to the top of the page, simulating a "back to dashboard" action
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+            // Event listener for the "Back to Dashboard" link
+            // Removed the scrollTo behavior as it's now a direct link
+            // document.getElementById('backToDashboard').addEventListener('click', () => {
+            //     window.scrollTo({ top: 0, behavior: 'smooth' });
+            // });
         });
     </script>
 </body>
