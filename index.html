@@ -22,28 +22,36 @@
             max-width: 600px; /* Max width for larger screens */
             margin-left: auto;
             margin-right: auto;
-            height: 300px; /* Default height for mobile */
-            max-height: 45vh; /* Prevents charts from being too tall on small screens */
-            min-height: 200px; /* Ensures a minimum visible height for charts */
+            height: 220px; /* Adjusted default height for better fit on small screens */
+            max-height: 35vh; /* Responsive max-height based on viewport height */
+            min-height: 180px; /* Ensures a minimum visible height for charts */
+            display: flex; /* Flexbox to center content vertically in empty space */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
 
         /* Adjust chart container height for medium and larger screens */
         @media (min-width: 768px) {
             .chart-container {
-                height: 350px;
+                height: 300px; /* Adjusted height for tablet/desktop */
+                max-height: unset; /* Remove max-height constraint on larger screens */
             }
         }
 
         /* Flowchart node styling for responsiveness */
         .flowchart-node {
             border-width: 2px;
-            padding: 0.75rem 1.25rem; /* Slightly reduced horizontal padding for small screens */
+            padding: 0.5rem 0.8rem; /* Reduced padding for better fit on small screens */
             border-radius: 0.5rem;
             text-align: center;
             font-weight: 600;
-            min-width: 120px; /* Slightly reduced min-width for mobile */
-            font-size: 0.9rem; /* Slightly smaller font for better fit on small screens */
-            white-space: nowrap; /* Prevent text wrapping inside node by default */
+            min-width: 90px; /* Reduced min-width for mobile */
+            font-size: 0.75rem; /* Smaller font for better fit on small screens */
+            white-space: normal; /* Allow text wrapping by default */
+            line-height: 1.2; /* Adjust line height for wrapped text */
+            display: flex; /* Use flexbox for vertical centering of text */
+            align-items: center;
+            justify-content: center;
         }
 
         /* Adjust flowchart node padding, min-width, and font size for medium and larger screens */
@@ -52,7 +60,7 @@
                 padding: 0.75rem 1.5rem;
                 min-width: 150px;
                 font-size: 1rem;
-                white-space: normal; /* Allow text wrapping on larger screens if needed */
+                line-height: 1.3; /* Restore original line height */
             }
         }
 
@@ -60,8 +68,8 @@
         .flowchart-arrow {
             position: relative;
             width: 2px;
-            height: 40px; /* Height for vertical arrow */
-            margin: 0 auto;
+            height: 30px; /* Reduced height for vertical arrow */
+            margin: 0.5rem auto; /* Adjusted margin */
             background-color: currentColor; /* Use current color for the line */
         }
 
@@ -74,16 +82,16 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 12px solid currentColor;
+            border-left: 7px solid transparent; /* Slightly smaller arrow head */
+            border-right: 7px solid transparent;
+            border-top: 10px solid currentColor;
         }
 
         /* Specific styles for horizontal arrows (used in Linked List) */
         .flowchart-arrow.horizontal-arrow {
-            width: 40px; /* Width for horizontal arrow */
+            width: 30px; /* Reduced width for horizontal arrow */
             height: 2px; /* Height for horizontal arrow */
-            margin: auto 0.5rem; /* Margin for horizontal arrow */
+            margin: auto 0.4rem; /* Adjusted margin for horizontal arrow */
             background-color: currentColor;
         }
 
@@ -94,24 +102,59 @@
             left: unset;
             right: 0; /* Arrow points to the right */
             transform: translateY(-50%) rotate(90deg); /* Rotate for right-pointing arrow */
-            border-top: 12px solid currentColor; /* Use border-top for the rotated triangle */
+            border-top: 10px solid currentColor; /* Use border-top for the rotated triangle */
             border-bottom: none; /* Ensure no bottom border */
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+        }
+
+        /* Custom animation for cards on hover */
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Specific styling for the header background effect */
+        .header-bg-effect {
+            background-image: linear-gradient(45deg, #005F73 0%, #0A9396 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .header-bg-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotateBackground 20s linear infinite;
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Smoother button transitions */
+        .btn-transition {
+            transition: all 0.3s ease-in-out;
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Header Section -->
-    <header class="bg-[#005F73] text-white text-center p-6 md:p-12 shadow-lg rounded-b-lg relative">
+    <header class="header-bg-effect text-white text-center p-6 md:p-12 shadow-lg rounded-b-lg relative">
         <!-- Back to Dashboard Link Button -->
-        <!-- Changed from button to anchor <a> tag to function as a link -->
-        <a href="https://masawan1.github.io/dashboardinformatika/" id="backToDashboard" class="absolute top-4 left-4 bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base shadow-md no-underline">
+        <a href="https://masawan1.github.io/dashboardinformatika/" id="backToDashboard" class="absolute top-4 left-4 bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base shadow-md no-underline btn-transition">
             &larr; Kembali ke Dashboard
         </a>
-        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mt-8 md:mt-0">Petualangan di Dunia Data & Algoritma</h1>
-        <p class="mt-3 text-base md:text-xl max-w-3xl mx-auto text-[#94D2BD]">Membongkar rahasia bagaimana program komputer berpikir dan bekerja secara efisien.</p>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mt-8 md:mt-0 drop-shadow-md">Petualangan di Dunia Data & Algoritma</h1>
+        <p class="mt-3 text-base md:text-xl max-w-3xl mx-auto text-[#94D2BD] drop-shadow">Membongkar rahasia bagaimana program komputer berpikir dan bekerja secara efisien.</p>
     </header>
 
     <!-- Main Content Area -->
@@ -127,7 +170,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
                 <!-- Array Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">1. Array: Si Rak yang Rapi</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">Seperti deretan loker bernomor. Sangat cepat untuk akses data jika tahu posisinya (indeks), namun kaku untuk diubah ukurannya.</p>
                     <div class="chart-container mt-auto">
@@ -136,10 +179,10 @@
                 </div>
 
                 <!-- Linked List Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">2. Linked List: Si Rantai Fleksibel</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">Seperti gerbong kereta yang saling terhubung. Fleksibel untuk menambah/menghapus data, namun akses harus berurutan dari awal.</p>
-                    <div class="flex flex-wrap items-center justify-center h-full mt-auto space-x-2 md:space-x-4">
+                    <div class="flex flex-wrap items-center justify-center h-full mt-auto space-x-1 md:space-x-4">
                         <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data A</div>
                         <!-- Horizontal arrow for Linked List -->
                         <div class="flowchart-arrow horizontal-arrow text-blue-400"></div>
@@ -150,28 +193,32 @@
                 </div>
 
                 <!-- Stack Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">3. Stack: Si Tumpukan Piring (LIFO)</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">Last-In, First-Out. Elemen terakhir yang masuk adalah yang pertama keluar. Contoh: Fungsi 'Undo' (Ctrl+Z).</p>
                     <div class="chart-container mt-auto">
                         <canvas id="stackChart"></canvas>
+                        <!-- Added placeholder for empty chart state -->
+                        <p id="emptyStackText" class="absolute text-gray-500 hidden">Tumpukan kosong!</p>
                     </div>
                     <div class="flex justify-center space-x-3 mt-4">
-                        <button id="stackPush" class="bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base min-w-[80px]">Push</button>
-                        <button id="stackPop" class="bg-[#EE9B00] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#CA6702] transition-colors text-sm md:text-base min-w-[80px]">Pop</button>
+                        <button id="stackPush" class="bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base min-w-[80px] btn-transition">Push</button>
+                        <button id="stackPop" class="bg-[#EE9B00] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#CA6702] transition-colors text-sm md:text-base min-w-[80px] btn-transition">Pop</button>
                     </div>
                 </div>
 
                 <!-- Queue Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">4. Queue: Si Antrean Tiket (FIFO)</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">First-In, First-Out. Elemen pertama yang masuk adalah yang pertama dilayani. Contoh: Antrean printer.</p>
                     <div class="chart-container mt-auto">
                         <canvas id="queueChart"></canvas>
+                        <!-- Added placeholder for empty chart state -->
+                        <p id="emptyQueueText" class="absolute text-gray-500 hidden">Antrean kosong!</p>
                     </div>
                     <div class="flex justify-center space-x-3 mt-4">
-                        <button id="queueEnqueue" class="bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base min-w-[80px]">Enqueue</button>
-                        <button id="queueDequeue" class="bg-[#EE9B00] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#CA6702] transition-colors text-sm md:text-base min-w-[80px]">Dequeue</button>
+                        <button id="queueEnqueue" class="bg-[#0A9396] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#005F73] transition-colors text-sm md:text-base min-w-[80px] btn-transition">Enqueue</button>
+                        <button id="queueDequeue" class="bg-[#EE9B00] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#CA6702] transition-colors text-sm md:text-base min-w-[80px] btn-transition">Dequeue</button>
                     </div>
                 </div>
             </div>
@@ -183,7 +230,7 @@
                 <h2 class="text-2xl md:text-4xl font-bold text-[#005F73] leading-snug">Bab 2: 'Resep' Pemecah Masalah</h2>
                 <p class="mt-2 text-base md:text-lg max-w-2xl mx-auto text-gray-700">Algoritma adalah serangkaian langkah logis dan terurut untuk menyelesaikan suatu tugas. Seperti resep masakan untuk komputer.</p>
             </div>
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 max-w-4xl mx-auto card-hover-effect">
                 <h3 class="text-xl md:text-2xl font-bold text-center text-[#0A9396] mb-6">Contoh Algoritma: Memasak Nasi</h3>
                 <div class="flex flex-col items-center">
                     <div class="flowchart-node bg-green-100 border-green-400 text-green-800">Mulai</div>
@@ -207,7 +254,7 @@
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
                 <!-- Search Efficiency Chart Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">Efisiensi Pencarian: Terurut vs Acak</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">Mencari data di array yang terurut (Binary Search) jauh lebih cepat daripada di array acak (Linear Search) seiring bertambahnya jumlah data.</p>
                     <div class="chart-container mt-auto">
@@ -215,7 +262,7 @@
                     </div>
                 </div>
                 <!-- Operation Speed Chart Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">Kecepatan Operasi: Array vs Linked List</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">Setiap struktur data punya keunggulan. Array cepat untuk akses langsung, sementara Linked List unggul dalam penyisipan data di tengah.</p>
                     <div class="chart-container mt-auto">
@@ -231,19 +278,19 @@
             <p class="mt-2 text-base md:text-lg max-w-2xl mx-auto mb-8 md:mb-10 text-gray-700">Memilih kombinasi yang tepat adalah kunci untuk membangun aplikasi yang...</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
                 <!-- Efficiency Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 card-hover-effect">
                     <div class="text-5xl md:text-6xl mb-3 md:mb-4">⚡</div>
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396]">Efisien</h3>
                     <p class="text-gray-600 mt-2 text-sm md:text-base">Menggunakan sumber daya (memori & waktu proses) secara minimal.</p>
                 </div>
                 <!-- Performance Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 card-hover-effect">
                     <div class="text-5xl md:text-6xl mb-3 md:mb-4">🚀</div>
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396]">Performa Cepat</h3>
                     <p class="text-gray-600 mt-2 text-sm md:text-base">Memberikan respon yang cepat kepada pengguna, tanpa 'lag'.</p>
                 </div>
                 <!-- Scalability Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 card-hover-effect">
                     <div class="text-5xl md:text-6xl mb-3 md:mb-4">📈</div>
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396]">Skalabel</h3>
                     <p class="text-gray-600 mt-2 text-sm md:text-base">Tetap andal dan cepat meskipun jumlah data terus bertambah besar.</p>
@@ -314,20 +361,34 @@
                         data: [10, 10, 10, 10, 10],
                         backgroundColor: '#94D2BD',
                         borderColor: '#0A9396',
-                        borderWidth: 2
+                        borderWidth: 2,
+                        barPercentage: 0.8, // Make bars slightly thinner
+                        categoryPercentage: 0.8 // Adjust spacing between bars
                     }]
                 },
                 options: {
                     ...sharedChartOptions,
                     scales: {
-                        y: { display: false }, // Hide Y-axis for this chart as it's not data-driven
-                        x: { ...sharedChartOptions.scales.x }
+                        y: {
+                            display: false, // Hide Y-axis for this chart as it's not data-driven
+                            beginAtZero: true,
+                            max: 10 // Ensure bars fill the available space consistently
+                        },
+                        x: {
+                            ...sharedChartOptions.scales.x,
+                            grid: { display: false } // Hide X-axis grid for cleaner look
+                        }
+                    },
+                    plugins: {
+                        ...sharedChartOptions.plugins,
+                        legend: { display: false } // Hide legend for cleaner array visualization
                     }
                 }
             });
 
             // Initialize Stack Chart and its interactive buttons
             const stackCtx = document.getElementById('stackChart');
+            const emptyStackText = document.getElementById('emptyStackText');
             const stackData = {
                 labels: ['Item 1', 'Item 2', 'Item 3'],
                 datasets: [{
@@ -336,6 +397,9 @@
                     backgroundColor: '#94D2BD',
                     borderColor: '#0A9396',
                     borderWidth: 2,
+                    borderRadius: 5, // Rounded corners for stack items
+                    barThickness: 'flex', // Allow bars to fill space dynamically
+                    maxBarThickness: 50 // Limit max thickness
                 }]
             };
             const stackChart = new Chart(stackCtx, {
@@ -345,11 +409,44 @@
                     ...sharedChartOptions,
                     indexAxis: 'y', // Makes bars horizontal, better for stack visualization
                     scales: {
-                        y: { ...sharedChartOptions.scales.y, stacked: true },
-                        x: { display: false, stacked: true } // Hide X-axis for stack visualization
+                        y: {
+                            ...sharedChartOptions.scales.y,
+                            stacked: true,
+                            grid: { display: false }, // Hide Y-axis grid
+                            ticks: { display: false } // Hide Y-axis labels
+                        },
+                        x: {
+                            display: false, // Hide X-axis for stack visualization
+                            stacked: true,
+                            beginAtZero: true,
+                            max: 10 // Fixed max value to prevent bars from shrinking on pop
+                        }
+                    },
+                    plugins: {
+                        ...sharedChartOptions.plugins,
+                        legend: { display: false }, // Hide legend
+                        tooltip: {
+                            enabled: true // Enable tooltips for stack items
+                        }
+                    },
+                    animation: {
+                        duration: 500, // Smooth animation
+                        easing: 'easeOutQuart'
                     }
                 }
             });
+
+            // Function to update stack chart visibility and text
+            const updateStackView = () => {
+                if (stackChart.data.labels.length === 0) {
+                    stackCtx.style.display = 'none';
+                    emptyStackText.classList.remove('hidden');
+                } else {
+                    stackCtx.style.display = 'block';
+                    emptyStackText.classList.add('hidden');
+                }
+                stackChart.update();
+            };
 
             let stackCounter = 3; // Counter for new stack items
             document.getElementById('stackPush').addEventListener('click', () => {
@@ -357,19 +454,21 @@
                     stackCounter++;
                     stackChart.data.labels.push(`Item ${stackCounter}`);
                     stackChart.data.datasets[0].data.push(10);
-                    stackChart.update(); // Update chart to reflect changes
+                    updateStackView();
                 }
             });
             document.getElementById('stackPop').addEventListener('click', () => {
                 if (stackChart.data.labels.length > 0) {
                     stackChart.data.labels.pop(); // Remove last item
                     stackChart.data.datasets[0].data.pop(); // Remove last data point
-                    stackChart.update(); // Update chart to reflect changes
+                    updateStackView();
                 }
             });
+            updateStackView(); // Initial call to set correct view
 
             // Initialize Queue Chart and its interactive buttons
             const queueCtx = document.getElementById('queueChart');
+            const emptyQueueText = document.getElementById('emptyQueueText');
             const queueData = {
                 labels: ['Orang 1', 'Orang 2', 'Orang 3'],
                 datasets: [{
@@ -378,6 +477,9 @@
                     backgroundColor: '#94D2BD',
                     borderColor: '#0A9396',
                     borderWidth: 2,
+                    borderRadius: 5, // Rounded corners for queue items
+                    barThickness: 'flex', // Allow bars to fill space dynamically
+                    maxBarThickness: 50 // Limit max thickness
                 }]
             };
             const queueChart = new Chart(queueCtx, {
@@ -386,27 +488,60 @@
                 options: {
                     ...sharedChartOptions,
                     scales: {
-                        y: { display: false }, // Hide Y-axis for queue visualization
-                        x: { ...sharedChartOptions.scales.x }
+                        y: {
+                            display: false, // Hide Y-axis for queue visualization
+                            beginAtZero: true,
+                            max: 10 // Fixed max value
+                        },
+                        x: {
+                            ...sharedChartOptions.scales.x,
+                            grid: { display: false }, // Hide X-axis grid
+                            ticks: { display: false } // Hide X-axis labels
+                        }
+                    },
+                    plugins: {
+                        ...sharedChartOptions.plugins,
+                        legend: { display: false }, // Hide legend
+                        tooltip: {
+                            enabled: true // Enable tooltips for queue items
+                        }
+                    },
+                    animation: {
+                        duration: 500, // Smooth animation
+                        easing: 'easeOutQuart'
                     }
                 }
             });
+
+            // Function to update queue chart visibility and text
+            const updateQueueView = () => {
+                if (queueChart.data.labels.length === 0) {
+                    queueCtx.style.display = 'none';
+                    emptyQueueText.classList.remove('hidden');
+                } else {
+                    queueCtx.style.display = 'block';
+                    emptyQueueText.classList.add('hidden');
+                }
+                queueChart.update();
+            };
+
             let queueCounter = 3; // Counter for new queue items
             document.getElementById('queueEnqueue').addEventListener('click', () => {
                 if (queueChart.data.labels.length < 7) { // Limit queue size
                     queueCounter++;
                     queueChart.data.labels.push(`Orang ${queueCounter}`);
                     queueChart.data.datasets[0].data.push(10);
-                    queueChart.update();
+                    updateQueueView();
                 }
             });
             document.getElementById('queueDequeue').addEventListener('click', () => {
                 if (queueChart.data.labels.length > 0) {
                     queueChart.data.labels.shift(); // Remove first item
                     queueChart.data.datasets[0].data.shift(); // Remove first data point
-                    queueChart.update();
+                    updateQueueView();
                 }
             });
+            updateQueueView(); // Initial call
 
             // Initialize Search Efficiency Chart
             new Chart(document.getElementById('searchEfficiencyChart'), {
@@ -417,16 +552,20 @@
                         label: 'Linear Search (Acak) O(n)',
                         data: [10, 100, 1000, 10000, 100000],
                         borderColor: '#EE9B00',
-                        backgroundColor: '#EE9B0020',
+                        backgroundColor: 'rgba(238, 155, 0, 0.1)', // More subtle fill
                         fill: true,
-                        tension: 0.1
+                        tension: 0.3, // Smoother line
+                        pointRadius: 4, // Make points visible
+                        pointHoverRadius: 6 // Larger points on hover
                     }, {
                         label: 'Binary Search (Terurut) O(log n)',
                         data: [4, 7, 10, 14, 17], // Represents logarithmic growth
                         borderColor: '#0A9396',
-                        backgroundColor: '#0A939620',
+                        backgroundColor: 'rgba(10, 147, 150, 0.1)', // More subtle fill
                         fill: true,
-                        tension: 0.1
+                        tension: 0.3, // Smoother line
+                        pointRadius: 4,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
@@ -435,20 +574,56 @@
                         y: {
                             ...sharedChartOptions.scales.y,
                             type: 'logarithmic', // Use logarithmic scale for better visualization of large differences
-                            title: { display: true, text: 'Jumlah Langkah (Waktu)', color: '#374151', font: { size: 12 } }
+                            title: { display: true, text: 'Jumlah Langkah (Waktu)', color: '#374151', font: { size: 12, weight: 'bold' } },
+                            ticks: {
+                                callback: function(value, index, ticks) {
+                                    // Custom tick formatting for logarithmic scale
+                                    if (value === 1 || value === 10 || value === 100 || value === 1000 || value === 10000 || value === 100000) {
+                                        return value.toLocaleString();
+                                    }
+                                    return null;
+                                }
+                            }
                         },
                         x: {
                             ...sharedChartOptions.scales.x,
-                            title: { display: true, text: 'Jumlah Data', color: '#374151', font: { size: 12 } }
+                            title: { display: true, text: 'Jumlah Data', color: '#374151', font: { size: 12, weight: 'bold' } }
                         }
+                    },
+                    plugins: {
+                        ...sharedChartOptions.plugins,
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                ...sharedChartOptions.plugins.tooltip.callbacks,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y.toLocaleString();
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    animation: {
+                        duration: 1000, // Slower animation for better visualization of line growth
+                        easing: 'easeOutQuart'
                     }
                 }
             });
 
             // Helper function to wrap long labels for better display on charts, especially on mobile
             const wrapLabel = (label) => {
-                const max_width = 12; // Adjusted for narrower mobile chart widths
-                if (label.length <= max_width) return label;
+                const max_width = 15; // Adjusted for narrower mobile chart widths and clearer wrapping
                 const words = label.split(' ');
                 let lines = [];
                 let current_line = '';
@@ -470,13 +645,15 @@
                 data: {
                     labels: [wrapLabel('Akses Indeks Langsung'), wrapLabel('Sisip/Hapus di Tengah'), wrapLabel('Tambah/Hapus di Akhir')],
                     datasets: [{
-                        label: 'Array',
+                        label: 'Array (Memori Berurutan)',
                         data: [100, 10, 50], // Higher value indicates faster operation (lower cost)
                         backgroundColor: '#0A9396',
+                        borderRadius: 5
                     }, {
-                        label: 'Linked List',
+                        label: 'Linked List (Memori Tersebar)',
                         data: [10, 95, 90], // Higher value indicates faster operation (lower cost)
                         backgroundColor: '#EE9B00',
+                        borderRadius: 5
                     }]
                 },
                 options: {
@@ -484,10 +661,18 @@
                     scales: {
                         y: {
                             ...sharedChartOptions.scales.y,
-                            title: { display: true, text: 'Kecepatan Relatif (Semakin Tinggi Semakin Cepat)', color: '#374151', font: { size: 12 } }
+                            title: { display: true, text: 'Kecepatan Relatif (Semakin Tinggi Semakin Cepat)', color: '#374151', font: { size: 12, weight: 'bold' } },
+                            beginAtZero: true,
+                            max: 110, // Slightly above max data point for better visual
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'; // Add percentage to ticks
+                                }
+                            }
                         },
                         x: {
-                            ...sharedChartOptions.scales.x
+                            ...sharedChartOptions.scales.x,
+                            grid: { display: false } // Hide x-axis grid
                         }
                     },
                     plugins: {
@@ -495,18 +680,26 @@
                         tooltip: { // Ensure tooltip callback is correctly applied for wrapped labels
                             ...sharedChartOptions.plugins.tooltip,
                             callbacks: {
-                                title: tooltipTitleCallback
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
+                                }
                             }
                         }
+                    },
+                    animation: {
+                        duration: 800, // Smooth animation for bar growth
+                        easing: 'easeOutQuart'
                     }
                 }
             });
-
-            // Event listener for the "Back to Dashboard" link
-            // Removed the scrollTo behavior as it's now a direct link
-            // document.getElementById('backToDashboard').addEventListener('click', () => {
-            //     window.scrollTo({ top: 0, behavior: 'smooth' });
-            // });
         });
     </script>
 </body>
