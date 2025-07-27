@@ -41,12 +41,12 @@
         /* Flowchart node styling for responsiveness */
         .flowchart-node {
             border-width: 2px;
-            padding: 0.5rem 0.8rem; /* Reduced padding for better fit on small screens */
+            padding: 0.3rem 0.5rem; /* Further reduced padding for better fit on small screens */
             border-radius: 0.5rem;
             text-align: center;
             font-weight: 600;
-            min-width: 90px; /* Reduced min-width for mobile */
-            font-size: 0.75rem; /* Smaller font for better fit on small screens */
+            min-width: 70px; /* Further reduced min-width for mobile */
+            font-size: 0.65rem; /* Further smaller font for better fit on small screens */
             white-space: normal; /* Allow text wrapping by default */
             line-height: 1.2; /* Adjust line height for wrapped text */
             display: flex; /* Use flexbox for vertical centering of text */
@@ -89,9 +89,9 @@
 
         /* Specific styles for horizontal arrows (used in Linked List) */
         .flowchart-arrow.horizontal-arrow {
-            width: 30px; /* Reduced width for horizontal arrow */
+            width: 20px; /* Further reduced width for horizontal arrow */
             height: 2px; /* Height for horizontal arrow */
-            margin: auto 0.4rem; /* Adjusted margin for horizontal arrow */
+            margin: auto 0.2rem; /* Further adjusted margin for horizontal arrow */
             background-color: currentColor;
         }
 
@@ -102,10 +102,10 @@
             left: unset;
             right: 0; /* Arrow points to the right */
             transform: translateY(-50%) rotate(90deg); /* Rotate for right-pointing arrow */
-            border-top: 10px solid currentColor; /* Use border-top for the rotated triangle */
+            border-top: 9px solid currentColor; /* Further reduced border-top for the rotated triangle */
             border-bottom: none; /* Ensure no bottom border */
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
+            border-left: 6px solid transparent; /* Further reduced border-left */
+            border-right: 6px solid transparent; /* Further reduced border-right */
         }
 
         /* Custom animation for cards on hover */
@@ -182,13 +182,13 @@
                 <div class="bg-white rounded-lg shadow-md p-6 flex flex-col card-hover-effect">
                     <h3 class="text-xl md:text-2xl font-bold text-[#0A9396] mb-3">2. Linked List: Si Rantai Fleksibel</h3>
                     <p class="mb-4 text-gray-600 text-sm md:text-base">Seperti gerbong kereta yang saling terhubung. Fleksibel untuk menambah/menghapus data, namun akses harus berurutan dari awal.</p>
-                    <div class="flex flex-wrap items-center justify-center h-full mt-auto space-x-1 md:space-x-4">
-                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data A</div>
+                    <div class="flex flex-nowrap items-center justify-center h-full mt-auto space-x-1 md:space-x-4 overflow-x-auto pb-2">
+                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800 flex-shrink-0">Data A</div>
                         <!-- Horizontal arrow for Linked List -->
-                        <div class="flowchart-arrow horizontal-arrow text-blue-400"></div>
-                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data B</div>
-                        <div class="flowchart-arrow horizontal-arrow text-blue-400"></div>
-                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800">Data C</div>
+                        <div class="flowchart-arrow horizontal-arrow text-blue-400 flex-shrink-0"></div>
+                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800 flex-shrink-0">Data B</div>
+                        <div class="flowchart-arrow horizontal-arrow text-blue-400 flex-shrink-0"></div>
+                        <div class="flowchart-node bg-blue-100 border-blue-400 text-blue-800 flex-shrink-0">Data C</div>
                     </div>
                 </div>
 
